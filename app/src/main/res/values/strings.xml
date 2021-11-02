@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">flixnet</string>
-    <string name="email_input">Correo Electronico</string>
+    <string name="email_input">Correo Electrónico</string>
     <string name="password_input">Contraseña</string>
-    <string name="login_button">Iniciar Sesion</string>
+    <string name="login_button">Iniciar Sesión</string>
     <string name="register_button">Registrarse</string>
 </resources>
