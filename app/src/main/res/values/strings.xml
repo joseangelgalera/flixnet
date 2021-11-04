@@ -4,4 +4,10 @@
     <string name="password_input">Contraseña</string>
     <string name="login_button">Iniciar Sesión</string>
     <string name="register_button">Registrarse</string>
+    
+    <string name="error_email_password" translatable="false">Los campos email y contraseña no puede ir vacios.</string>
+    <string name="error_de_login" translatable="false">Email o contraseña incorrectos.</string>
+    <string name="bienvenida" translatable="false">Bienvenido/a a la aplicación.</string>
+    <string name="boton_salir" translatable="false">Salir</string>
+    <string name="boton_perfil" translatable="false">Perfil</string>
 </resources>
