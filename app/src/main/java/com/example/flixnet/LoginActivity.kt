@@ -1,11 +1,11 @@
 package com.example.flixnet
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.example.flixnet.databinding.ActivityLoginBinding
+import com.example.flixnet.objetos.Usuario
 import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
@@ -32,8 +32,22 @@ class LoginActivity : AppCompatActivity() {
         val email: String = binding.email.text.toString().trim()
         val password: String = binding.password.text.toString().trim()
 
-        if (email == "example@exmple.com" || password == "1234")
-            Snackbar.make(view, R.string.bienvenida, Snackbar.LENGTH_LONG).show()
+        if (email == "example@exmple.com" || password == "1234") {
+
+            val usuario = Usuario("Laura Lerida", "example@exmple.com", 20 )
+
+
+            val intencion = Intent(this, MainActivity::class.java)
+
+
+            val bundle = Bundle()
+            bundle.putString("nombre", "Laura Lerida")
+            bundle.putInt("edad", 20)
+
+            intencion.putExtra("usuario", bundle)
+
+            startActivity(intencion)
+        }
         else
             Snackbar.make(view, R.string.error_de_login, Snackbar.LENGTH_LONG).show()
 
