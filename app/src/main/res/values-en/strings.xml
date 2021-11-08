@@ -5,4 +5,8 @@
     <string name="password_input">Password</string>
     <string name="login_button">Login</string>
     <string name="register_button">Register</string>
+    <string name="name_input">Name</string>
+    <string name="surname_input">Surname</string>
+    <string name="username_input">Username</string>
+    <string name="repassword_input">Repeat the password</string>
 </resources>

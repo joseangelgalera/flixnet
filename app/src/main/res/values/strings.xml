@@ -16,5 +16,13 @@
 
     <string name="edit_menu" translatable="false">Editar</string>
     <string name="delete_menu" translatable="false">Borrar</string>
+    
+    <string name="name_input">Nombre</string>
+    <string name="surname_input">Apellidos</string>
+    <string name="username_input">Nombre de Usuario</string>
+    <string name="repassword_input">Repita la contraseña</string>
+
+    <string name="registro" translatable="false">Se ha registrado correctamente.</string>
+    <string name="error_de_registro" translatable="false">No ha podido realizarse el registro.</string>
 
 </resources>

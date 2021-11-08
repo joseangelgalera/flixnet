@@ -25,6 +25,10 @@ class LoginActivity : AppCompatActivity() {
 
             login(it)
         }
+
+        binding.registerbutton.setOnClickListener{
+            register(it)
+        }
     }
 
     fun login(view: View) {
@@ -34,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (email == "example@exmple.com" || password == "1234") {
 
-            val usuario = Usuario("Laura Lerida", "example@exmple.com", 20 )
+            //val usuario = Usuario("Laura Lerida", "example@exmple.com", 20 )
 
 
             val intencion = Intent(this, MainActivity::class.java)
@@ -51,5 +55,11 @@ class LoginActivity : AppCompatActivity() {
         else
             Snackbar.make(view, R.string.error_de_login, Snackbar.LENGTH_LONG).show()
 
+    }
+
+    fun register(view: View){
+        val intencion = Intent(this, RegisterActivity::class.java)
+
+        startActivity(intencion)
     }
 }
