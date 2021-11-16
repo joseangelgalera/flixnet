@@ -6,11 +6,17 @@ import android.os.Bundle
 import android.view.View
 import com.example.flixnet.databinding.ActivityMainBinding
 import com.example.flixnet.databinding.ActivityRegisterBinding
+import com.example.flixnet.objetos.Usuario
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +27,10 @@ class RegisterActivity : AppCompatActivity() {
             register(it)
         }
 
+        auth = Firebase.auth
+
     }
+    // metodo de registro de firebase CreateUserWithEmailAndPassword(....)
 
     fun register(view: View){
 
@@ -31,15 +40,21 @@ class RegisterActivity : AppCompatActivity() {
         val email : String = binding.email.text.toString().trim()
         val password : String = binding.password.text.toString().trim()
 
-        if (email == "example@exmple.com" || password == "1234") {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) {
 
-            val intencion = Intent(this, LoginActivity::class.java)
+                if (it.isSuccessful) {
+                    val intencion = Intent(this, LoginActivity::class.java)
 
-            startActivity(intencion)
-        }
-        else {
-            Snackbar.make(view, R.string.error_de_registro, Snackbar.LENGTH_LONG).show()
+                    val intencionVuelta = Intent()
+                    //intencionVuelta.putExtra(..., ...)
+                    setResult(RESULT_OK, intencion)
+                    finish()
 
-        }
+                } else {
+                    Snackbar.make(view, R.string.error_de_registro, Snackbar.LENGTH_LONG).show()
+                }
+
+            }
     }
 }

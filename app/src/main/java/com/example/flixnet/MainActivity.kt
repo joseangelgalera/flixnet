@@ -1,5 +1,7 @@
 package com.example.flixnet
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -9,11 +11,17 @@ import android.view.View
 import android.widget.Toast
 import com.example.flixnet.databinding.ActivityLoginBinding
 import com.example.flixnet.databinding.ActivityMainBinding
+import com.example.flixnet.objetos.Usuario
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
 
+    @SuppressLint("StringFormatInvalid")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,10 +31,42 @@ class MainActivity : AppCompatActivity() {
 
         registerForContextMenu(binding.bienvenida)
 
-        val bundle =intent.extras?.getBundle("usuario")
-        val nombre = bundle?.getString("nombre")
+        auth = Firebase.auth
 
-        binding.bienvenida.text = "Bienvenido/a ${nombre}"
+        //Recuperamos información almacenada con putextra en la intencion
+        //val nombre = intent.extras?.get("nombre")
+        val usuario: Usuario = intent.extras?.getSerializable("_usuario") as Usuario
+
+        // recuperamos informacion almacenada en un bundle en la intencion
+        val bundle = intent.extras?.getBundle("_usuario")
+        val nombre = bundle?.getString("_nombre")
+
+        with(binding.bienvenida) {
+            text = resources.getString(R.string.bienvenida, nombre)
+        }
+        // binding.etiqueta.text = binding.etiqueta.text.toString() + nombre}
+
+        //binding.etiqueta.text = resources.getQuantityString(R.plurals.totalElementos, 23)
+
+        /*
+        Lanzamos una intencion implícita (Ejemplo)
+        */
+
+
+        binding.implicita.setOnClickListener {
+            // Defininmos la intención implícita
+            val intencion = Intent().apply {
+                action = Intent.ACTION_SEND
+                type = "text/plain" // Tipo de informacion (MIME)
+                putExtra(Intent.EXTRA_TEXT, "Te recomiendo que veas LOCKE & KEY")
+            }
+
+            // Lanzamos la intencion pero previamente tendremos que comprobar
+            // hay algún paquete (app) instalado en el dispositivo
+            // capaz de atender la intención.
+            if (intencion.resolveActivity(packageManager) != null)
+                startActivity(intencion)
+        }
     }
 
     override fun onBackPressed() {
@@ -48,7 +88,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.exitbutton -> {
-                Toast.makeText(this, "BOTON DE SALIR: PROXIMAMENTE", Toast.LENGTH_SHORT).show()
+                auth.signOut()
+                finish()
                 true
             }
 
